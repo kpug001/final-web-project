@@ -3,42 +3,148 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Professional Profile & Résumé</title>
+    <title>Professional Portfolio & Résumé</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        body { background-color: #f8f9fa; color: #333; }
-        /* Sophisticated custom gradient using your exact palette */
-        .hero-section { background: linear-gradient(135deg, #1d3557, #4a6fa5); color: white; padding: 60px 0; }
-        .resume-section { background: white; border-radius: 8px; padding: 40px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
-        .section-title { color: #1d3557; border-bottom: 2px solid #edf2f7; padding-bottom: 8px; margin-top: 30px; margin-bottom: 20px; }
-        .job-title { font-weight: bold; color: #2c3e50; }
-        .company-name { color: #4a6fa5; font-style: italic; }
+        body { 
+            background-color: #fcfaf6; /* Elegant soft cream background matching your scratch page */
+            font-family: 'Garamond', 'Georgia', serif; 
+            color: #2b3a4a;
+        }
+        .hero-section { 
+            background: linear-gradient(135deg, #1d3557, #4a6fa5); /* Beautiful slate-to-navy blue gradient */
+            color: white; 
+            padding: 80px 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        .resume-container {
+            max-width: 850px;
+        }
+        .resume-section { 
+            background: #ffffff; 
+            border-radius: 16px; 
+            padding: 45px; 
+            box-shadow: 0 10px 30px rgba(43, 58, 74, 0.05); /* Soft premium shadow */
+            border: 1px solid #f0e9df;
+        }
+        h2.section-title {
+            color: #1d3557;
+            font-family: 'Garamond', serif;
+            letter-spacing: 1px;
+            border-bottom: 2px solid #e3ebf2;
+            padding-bottom: 8px;
+            margin-bottom: 25px;
+        }
+        .job-title {
+            color: #1d3557;
+            font-weight: bold;
+            font-size: 1.15rem;
+        }
+        .company-meta {
+            color: #6c757d;
+            font-style: italic;
+            font-size: 0.95rem;
+        }
+        .custom-badge {
+            background-color: #e3ebf2 !important;
+            color: #4a6fa5 !important;
+            border: 1px solid #b8c0cb;
+            padding: 8px 14px !important;
+            font-size: 0.9rem !important;
+            font-weight: 500;
+            border-radius: 30px !important;
+            margin: 4px;
+            display: inline-block;
+        }
+        li {
+            margin-bottom: 8px;
+        }
     </style>
 </head>
 <body>
 
     <header class="hero-section text-center">
         <div class="container">
-            <h1 class="display-4 fw-bold">Welcome to My Professional Portfolio</h1>
-            <p class="lead">Explore my background, skills, and creative projects below.</p>
+            <h1 class="display-4 fw-normal" style="letter-spacing: 1px;">Welcome to My Professional Portfolio</h1>
+            <p class="lead" style="opacity: 0.9; font-style: italic;">Experiencing Design. Executing Logistics. Creating Moments.</p>
             
-            <nav class="mt-4" style="border-top: 1px solid rgba(255,255,255,0.3); padding-top: 15px;">
-                <a href="index.html" style="color: #ffffff; text-decoration: none; margin: 0 15px; font-weight: 500;">Home</a> | 
-                <a href="scratch.html" style="color: #edf2f7; text-decoration: none; margin: 0 15px; font-weight: 500;">Event Design Portfolio</a> | 
-                <a href="app.html" style="color: #edf2f7; text-decoration: none; margin: 0 15px; font-weight: 500;">Wedding Day Game 🎮</a>
+            <nav class="mt-4" style="border-top: 1px solid rgba(255,255,255,0.2); padding-top: 20px;">
+                <a href="index.html" style="color: #ffffff; text-decoration: none; margin: 0 15px; font-weight: 500; opacity: 1;">Home</a> | 
+                <a href="scratch.html" style="color: #edf2f7; text-decoration: none; margin: 0 15px; font-weight: 500; opacity: 0.9;">Event Design Portfolio</a> | 
+                <a href="app.html" style="color: #edf2f7; text-decoration: none; margin: 0 15px; font-weight: 500; opacity: 0.9;">Wedding Day Game 🎮</a>
             </nav>
         </div>
     </header>
 
-    <main class="container my-5">
+    <main class="container resume-container my-5">
         <div class="resume-section">
             
-            <h1 style="color: #1d3557;" class="fw-bold mb-1">Kate Pugmire</h1>
-            <p class="text-muted">Provo, UT | Experience Design & Management Professional</p>
-            
-            <h3 class="section-title">Education</h3>
-            <div class="mb-3">
-                <span class="job-title">Bachelor of Science in Experience Design and Management</span><br>
-                <span class="company-name">Brigham Young University</span> — <span class="text-muted">Expected Graduation: April 2028</span>
-                <ul class="mt-2">
-                    <li>
+            <section class="mb-5">
+                <h2 class="section-title">🎓 Education</h2>
+                <div class="d-flex justify-content-between align-items-baseline flex-wrap">
+                    <span class="job-title">Bachelor of Science in Experience Design and Management</span>
+                    <span class="text-muted fw-bold">Expected April 2028</span>
+                </div>
+                <div class="company-meta">Brigham Young University</div>
+            </section>
+
+            <section class="mb-5">
+                <h2 class="section-title">💼 Work Experience</h2>
+                
+                <div class="mb-4">
+                    <div class="d-flex justify-content-between align-items-baseline flex-wrap">
+                        <span class="job-title">Event Planner</span>
+                        <span class="text-muted small fw-bold">Red Rock Finance Conference</span>
+                    </div>
+                    <div class="company-meta mb-2">Professional Logistics Coordination</div>
+                    <ul>
+                        <li>Coordinated end-to-end event logistics with strict precision, ensuring seamless scheduling, vendor management, and smooth presentation flow.</li>
+                        <li>Managed attendee registration dashboards, venue layout optimization, and real-time troubleshooting to deliver a high-quality professional environment.</li>
+                    </ul>
+                </div>
+
+                <div class="mb-4">
+                    <div class="d-flex justify-content-between align-items-baseline flex-wrap">
+                        <span class="job-title">Assistant Wedding Planner</span>
+                        <span class="text-muted small fw-bold">Event & Wedding Design</span>
+                    </div>
+                    <div class="company-meta mb-2">Bespoke Guest Experiences</div>
+                    <ul>
+                        <li>Balanced creative, aesthetic visions with operational design flow to create stunning, stress-free environments for clients.</li>
+                        <li>Overrode complex logistical roadblocks smoothly during live events, managing guest touchpoints and vendor timelines with calm efficiency.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="mb-5">
+                <h2 class="section-title">⚡ Core Expertise</h2>
+                <div class="pt-2">
+                    <span class="badge custom-badge">Organization</span>
+                    <span class="badge custom-badge">Time Management</span>
+                    <span class="badge custom-badge">Event Logistics & Coordination</span>
+                    <span class="badge custom-badge">Guest Experience Design</span>
+                    <span class="badge custom-badge">Excel VBA Programming</span>
+                    <span class="badge custom-badge">Tableau Data Visualization</span>
+                    <span class="badge custom-badge">HTML5 & CSS3 Architecture</span>
+                </div>
+            </section>
+
+            <section class="mb-2">
+                <h2 class="section-title">🏆 Awards & Honors</h2>
+                <ul>
+                    <li class="fw-bold" style="color: #1d3557;">Jane McGee Scholarship for Track and Field</li>
+                </ul>
+            </section>
+        </div>
+    </main>
+
+    <footer class="bg-dark text-white text-center py-4 mt-5" style="background-color: #1d3557 !important;">
+        <p class="mb-2" style="font-size: 0.95rem; opacity: 0.8;">© 2026 Portfolio. All rights reserved.</p>
+        <div style="font-size: 0.9rem;">
+            <a href="https://linkedin.com" class="text-white mx-2 text-decoration-none" target="_blank" style="opacity: 0.9;">LinkedIn</a> | 
+            <a href="https://github.com" class="text-white mx-2 text-decoration-none" target="_blank" style="opacity: 0.9;">GitHub</a>
+        </div>
+    </footer>
+
+</body>
+</html>
