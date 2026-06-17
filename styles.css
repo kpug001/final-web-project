@@ -1,0 +1,85 @@
+body {
+    background-color: #f4f7f9;
+    font-family: 'Garamond', 'Georgia', serif;
+    color: #1d3557;
+    margin: 0;
+    padding: 40px 20px;
+    line-height: 1.7;
+}
+.container-div {
+    max-width: 800px;
+    margin: 30px auto;
+    padding: 45px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(29, 53, 87, 0.05);
+}
+.nav-box {
+    background-color: #ffffff; 
+    text-align: center;
+    padding: 20px;
+    border-bottom: 2px solid #e3ebf2;
+}
+.nav-link {
+    color: #4a6fa5;
+    text-decoration: none;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+.nav-divider {
+    color: #e3ebf2;
+    margin: 0 15px;
+}
+.content-box {
+    border-top: 4px solid #1d3557;
+}
+.media-box {
+    background-color: #edf2f7;
+    border-top: 4px solid #4a6fa5;
+}
+h1, h2 {
+    color: #1d3557;
+    text-align: center;
+}
+h3 {
+    color: #4a6fa5;
+}
+.subtitle {
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    color: #4a6fa5;
+    font-weight: bold;
+    display: block;
+    text-align: center;
+}
+.intro-text {
+    font-size: 1.15rem;
+    font-style: italic;
+    text-align: center;
+}
+.decorative-line {
+    width: 60px;
+    height: 2px;
+    background-color: #4a6fa5;
+    margin: 15px auto 25px auto;
+}
+.editorial-list {
+    padding-left: 20px;
+}
+.editorial-list ul {
+    list-style-type: circle;
+    padding-left: 20px;
+}
+.hobby-image {
+    /* --- IMAGE SIZE ADJUSTMENT --- */
+    max-width: 40%; /* We made this much smaller (was 100%) */
+    /* ------------------------------ */
+    height: auto;
+    border-radius: 4px;
+    margin: 30px auto;
+    display: block;
+}
+.media-container {
+    margin: 30px 0;
+    text-align: center;
+}

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web App Feature: Logic Gauge</title>
+    <style>
+        body { 
+            font-family: 'Garamond', 'Georgia', serif; 
+            background-color: #f4f7f9; 
+            color: #1d3557; 
+            text-align: center; 
+            padding: 60px 20px; 
+        }
+        .app-card { 
+            background: #ffffff; 
+            max-width: 440px; 
+            margin: 0 auto; 
+            padding: 45px 35px; 
+            border-radius: 12px; 
+            box-shadow: 0 10px 30px rgba(29, 53, 87, 0.06); 
+            border-top: 4px solid #1d3557;
+        }
+        h2 { margin-top: 0; color: #1d3557; font-weight: normal; font-size: 1.7rem; }
+        .decorative-line { width: 50px; height: 2px; background-color: #4a6fa5; margin: 15px auto 25px auto; }
+        input { 
+            padding: 12px; 
+            width: 70%; 
+            border-radius: 6px; 
+            border: 1px solid #b8c0cb; 
+            margin-bottom: 20px; 
+            font-size: 16px; 
+            text-align: center; 
+            color: #1d3557;
+            background-color: #fafbfc;
+        }
+        input:focus { outline: none; border-color: #1d3557; }
+        button { 
+            padding: 12px 28px; 
+            border: none; 
+            background-color: #4a6fa5; 
+            color: white; 
+            border-radius: 6px; 
+            font-size: 15px; 
+            cursor: pointer; 
+            font-weight: bold; 
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: background-color 0.2s;
+        }
+        button:hover { background-color: #1d3557; }
+        .feedback { font-size: 18px; margin: 25px 0; font-weight: bold; min-height: 26px; }
+        .return-link { margin-top: 40px; display: inline-block; color: #4a6fa5; text-decoration: none; font-weight: bold; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px; }
+        .return-link:hover { color: #1d3557; }
+    </style>
+</head>
+<body>
+
+    <div class="app-card">
+        <h2>Intuition Tracker</h2>
+        <div class="decorative-line"></div>
+        <p style="color: #4a5568; font-style: italic; margin-bottom: 25px;">I have chosen a random design sequence token from 1 to 100. Can you isolate the correct number?</p>
+        
+        <input type="number" id="userGuess" min="1" max="100" placeholder="Enter your target...">
+        <br>
+        <button onclick="evaluateGuess()">Submit Guess</button>
+
+        <div class="feedback" id="feedbackDisplay"></div>
+        <p style="color: #6c7a89; font-size: 0.95rem;">Total Attempts: <span id="countDisplay" style="color: #1d3557; font-weight: bold;">0</span></p>
+    </div>
+
+    <a href="scratch.html" class="return-link">← Return to Experience Layout</a>
+
+    <script>
+        const secretTarget = Math.floor(Math.random() * 100) + 1;
+        let scoreCounter = 0;
+
+        function evaluateGuess() {
+            const currentGuess = parseInt(document.getElementById('userGuess').value);
+            const display = document.getElementById('feedbackDisplay');
+            const counterElement = document.getElementById('countDisplay');
+            
+            if (isNaN(currentGuess) || currentGuess < 1 || currentGuess > 100) {
+                display.textContent = "⚠️ Please select an active range from 1 to 100.";
+                display.style.color = "#d97706";
+                return;
+            }
+
+            scoreCounter++;
+            counterElement.textContent = scoreCounter;
+
+            if (currentGuess === secretTarget) {
+                display.textContent = `🎉 Correct! The sequence target was ${secretTarget}. Found in ${scoreCounter} steps!`;
+                display.style.color = "#16a34a";
+            } else if (currentGuess < secretTarget) {
+                display.textContent = "📉 Sequence lower than target. Adjust higher.";
+                display.style.color = "#2563eb";
+            } else {
+                display.textContent = "📈 Sequence higher than target. Adjust lower.";
+                display.style.color = "#dc2626";
+            }
+        }
+    </script>
+</body>
+</html>
