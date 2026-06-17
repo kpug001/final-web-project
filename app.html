@@ -3,103 +3,202 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Web App Feature: Logic Gauge</title>
+    <title>Wedding Day Rush! 🎮</title>
+    <link rel="stylesheet" href="styles.css">
     <style>
-        body { 
-            font-family: 'Garamond', 'Georgia', serif; 
-            background-color: #f4f7f9; 
-            color: #1d3557; 
-            text-align: center; 
-            padding: 60px 20px; 
+        /* Custom game styling to match your ice-blue aesthetic */
+        .game-wrapper {
+            text-align: center;
+            padding: 20px;
         }
-        .app-card { 
-            background: #ffffff; 
-            max-width: 440px; 
-            margin: 0 auto; 
-            padding: 45px 35px; 
-            border-radius: 12px; 
-            box-shadow: 0 10px 30px rgba(29, 53, 87, 0.06); 
-            border-top: 4px solid #1d3557;
+        #gameCanvas {
+            background: linear-gradient(to bottom, #edf2f7, #ffffff);
+            border: 3px solid #1d3557;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(29, 53, 87, 0.1);
+            display: block;
+            margin: 20px auto;
+            max-width: 100%;
         }
-        h2 { margin-top: 0; color: #1d3557; font-weight: normal; font-size: 1.7rem; }
-        .decorative-line { width: 50px; height: 2px; background-color: #4a6fa5; margin: 15px auto 25px auto; }
-        input { 
-            padding: 12px; 
-            width: 70%; 
-            border-radius: 6px; 
-            border: 1px solid #b8c0cb; 
-            margin-bottom: 20px; 
-            font-size: 16px; 
-            text-align: center; 
+        .score-board {
+            font-size: 1.5rem;
+            font-weight: bold;
             color: #1d3557;
-            background-color: #fafbfc;
+            margin-bottom: 10px;
         }
-        input:focus { outline: none; border-color: #1d3557; }
-        button { 
-            padding: 12px 28px; 
-            border: none; 
-            background-color: #4a6fa5; 
-            color: white; 
-            border-radius: 6px; 
-            font-size: 15px; 
-            cursor: pointer; 
-            font-weight: bold; 
+        .game-btn {
+            background-color: #4a6fa5;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
-            transition: background-color 0.2s;
+            letter-spacing: 1px;
+            transition: background 0.2s;
         }
-        button:hover { background-color: #1d3557; }
-        .feedback { font-size: 18px; margin: 25px 0; font-weight: bold; min-height: 26px; }
-        .return-link { margin-top: 40px; display: inline-block; color: #4a6fa5; text-decoration: none; font-weight: bold; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px; }
-        .return-link:hover { color: #1d3557; }
+        .game-btn:hover {
+            background-color: #1d3557;
+        }
     </style>
 </head>
 <body>
 
-    <div class="app-card">
-        <h2>Intuition Tracker</h2>
-        <div class="decorative-line"></div>
-        <p style="color: #4a5568; font-style: italic; margin-bottom: 25px;">I have chosen a random design sequence token from 1 to 100. Can you isolate the correct number?</p>
-        
-        <input type="number" id="userGuess" min="1" max="100" placeholder="Enter your target...">
-        <br>
-        <button onclick="evaluateGuess()">Submit Guess</button>
-
-        <div class="feedback" id="feedbackDisplay"></div>
-        <p style="color: #6c7a89; font-size: 0.95rem;">Total Attempts: <span id="countDisplay" style="color: #1d3557; font-weight: bold;">0</span></p>
+    <!-- Navigation Menu Block -->
+    <div class="container-div nav-box">
+        <a href="index.html" class="nav-link">← Back to Portfolio</a>
+        <span class="nav-divider">|</span>
+        <a href="scratch.html" class="nav-link">Design Philosophy & Analytics</a>
     </div>
 
-    <a href="scratch.html" class="return-link">← Return to Experience Layout</a>
+    <!-- Game Content Block -->
+    <div class="container-div content-box game-wrapper">
+        <span class="subtitle">INTERACTIVE RECEPTION GAME</span>
+        <h1>Wedding Day Rush!</h1>
+        <div class="decorative-line"></div>
+        <p><strong>Instructions:</strong> Use your <strong>Left and Right Arrow keys</strong> (or tap the sides of the canvas on mobile) to move the Wedding Basket. Catch the items before they hit the ground!</p>
+        
+        <div style="margin: 20px 0;">
+            <span style="margin-right: 15px;">💍 Ring = +10 pts</span>
+            <span style="margin-right: 15px;">🎂 Cake = +20 pts</span>
+            <span>🌧️ Rain Cloud = -15 pts</span>
+        </div>
+
+        <div class="score-board">Score: <span id="scoreVal">0</span></div>
+        <canvas id="gameCanvas" width="500" height="400"></canvas>
+        <button class="game-btn" id="startBtn">Start Game</button>
+    </div>
 
     <script>
-        const secretTarget = Math.floor(Math.random() * 100) + 1;
-        let scoreCounter = 0;
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        const scoreVal = document.getElementById('scoreVal');
+        const startBtn = document.getElementById('startBtn');
 
-        function evaluateGuess() {
-            const currentGuess = parseInt(document.getElementById('userGuess').value);
-            const display = document.getElementById('feedbackDisplay');
-            const counterElement = document.getElementById('countDisplay');
-            
-            if (isNaN(currentGuess) || currentGuess < 1 || currentGuess > 100) {
-                display.textContent = "⚠️ Please select an active range from 1 to 100.";
-                display.style.color = "#d97706";
-                return;
-            }
+        let score = 0;
+        let gameActive = false;
+        let basket = { x: 215, y: 360, width: 70, height: 25, speed: 7 };
+        let items = [];
+        let keys = {};
 
-            scoreCounter++;
-            counterElement.textContent = scoreCounter;
+        // Track keyboard inputs
+        window.addEventListener('keydown', (e) => keys[e.code] = true);
+        window.addEventListener('keyup', (e) => keys[e.code] = false);
 
-            if (currentGuess === secretTarget) {
-                display.textContent = `🎉 Correct! The sequence target was ${secretTarget}. Found in ${scoreCounter} steps!`;
-                display.style.color = "#16a34a";
-            } else if (currentGuess < secretTarget) {
-                display.textContent = "📉 Sequence lower than target. Adjust higher.";
-                display.style.color = "#2563eb";
-            } else {
-                display.textContent = "📈 Sequence higher than target. Adjust lower.";
-                display.style.color = "#dc2626";
+        // Mobile touch controls
+        canvas.addEventListener('touchstart', (e) => {
+            const touchX = e.touches[0].clientX - canvas.getBoundingClientRect().left;
+            if (touchX < canvas.width / 2) basket.x -= 30;
+            else basket.x += 30;
+        });
+
+        function spawnItem() {
+            if (!gameActive) return;
+            const rand = Math.random();
+            let type = 'ring';
+            if (rand > 0.8) type = 'cake';      // 20% chance for cake
+            else if (rand < 0.25) type = 'cloud'; // 25% chance for a rain cloud
+
+            items.push({
+                x: Math.random() * (canvas.width - 30) + 15,
+                y: 0,
+                speed: Math.random() * 2 + 2,
+                type: type,
+                radius: 12
+            });
+
+            // Keep spawning every 1 second
+            setTimeout(spawnItem, 1000);
+        }
+
+        function update() {
+            if (!gameActive) return;
+
+            // Move Basket
+            if (keys['ArrowLeft'] && basket.x > 0) basket.x -= basket.speed;
+            if (keys['ArrowRight'] && basket.x < canvas.width - basket.width) basket.x += basket.speed;
+
+            // Move & Check Items
+            for (let i = items.length - 1; i >= 0; i--) {
+                items[i].y += items[i].speed;
+
+                // Collision detection with basket
+                if (items[i].y + items[i].radius >= basket.y && 
+                    items[i].x >= basket.x && 
+                    items[i].x <= basket.x + basket.width) {
+                    
+                    if (items[i].type === 'ring') score += 10;
+                    else if (items[i].type === 'cake') score += 20;
+                    else if (items[i].type === 'cloud') score = Math.max(0, score - 15); // Don't go below 0
+
+                    scoreVal.textContent = score;
+                    items.splice(i, 1);
+                    continue;
+                }
+
+                // Remove item if it falls past screen
+                if (items[i].y > canvas.height) {
+                    items.splice(i, 1);
+                }
             }
         }
+
+        function draw() {
+            // Clear canvas
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Draw Basket (Elegant Navy Event Basket)
+            ctx.fillStyle = '#1d3557';
+            ctx.beginPath();
+            ctx.roundRect(basket.x, basket.y, basket.width, basket.height, 8);
+            ctx.fill();
+            // Handle bar
+            ctx.strokeStyle = '#4a6fa5';
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            ctx.arc(basket.x + basket.width/2, basket.y, basket.width/3, Math.PI, 0);
+            ctx.stroke();
+
+            // Draw Falling Wedding Items
+            items.forEach(item => {
+                ctx.font = "24px serif";
+                ctx.textAlign = "center";
+                ctx.textBaseline = "middle";
+                
+                if (item.type === 'ring') {
+                    ctx.fillText('💍', item.x, item.y);
+                } else if (item.type === 'cake') {
+                    ctx.fillText('🎂', item.x, item.y);
+                } else if (item.type === 'cloud') {
+                    ctx.fillText('🌧️', item.x, item.y);
+                }
+            });
+        }
+
+        function gameLoop() {
+            update();
+            draw();
+            if (gameActive) requestAnimationFrame(gameLoop);
+        }
+
+        startBtn.addEventListener('click', () => {
+            if (!gameActive) {
+                gameActive = true;
+                score = 0;
+                items = [];
+                scoreVal.textContent = score;
+                startBtn.textContent = "Restart Game";
+                spawnItem();
+                gameLoop();
+            } else {
+                // Quick reset
+                score = 0;
+                items = [];
+                scoreVal.textContent = score;
+            }
+        });
     </script>
 </body>
 </html>
